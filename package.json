@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "BLB (Blue Letter Bible) ScriptTagger plugin for Docusaurus.",
   "keywords": [
-    "Docusaurus",
+    "docusaurus",
     "plugin",
-    "BLB ScriptTagger",
-    "Blue Letter Bible",
-    "Bible",
-    "Scripture",
+    "blb scripttagger",
+    "blue letter bible",
+    "bible",
+    "scripture",
     "references"
   ],
   "homepage": "https://github.com/davidtimmons/docusaurus-plugin-blb-scripttagger",
@@ -44,7 +44,7 @@
     "typescript": "^4.5.5"
   },
   "peerDependencies": {
-    "@docusaurus/core": "2.x"
+    "@docusaurus/core": "2.0.0-beta || 2.x"
   },
   "engines": {
     "node": ">=14"

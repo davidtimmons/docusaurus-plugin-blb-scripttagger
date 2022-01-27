@@ -21,7 +21,7 @@ module.exports = {
   // ...
   plugins: [
     [
-      "docusaurus-plugin-blb-scripttagger",
+      'docusaurus-plugin-blb-scripttagger',
       {
         // Include desired options here:
         Translation: 'NASB20',
