@@ -1,6 +1,6 @@
 {
   "name": "docusaurus-plugin-blb-scripttagger",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "BLB (Blue Letter Bible) ScriptTagger plugin for Docusaurus.",
   "keywords": [
     "docusaurus",
