@@ -1,3 +1,9 @@
+# Project
+
+lib
+test
+.docusaurus
+
 # Logs
 logs
 *.log
