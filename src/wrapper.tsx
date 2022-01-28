@@ -1,33 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment";
-import type { ComponentPropsWithoutRef, FunctionComponent } from "react";
+import type { ComponentProps, FunctionComponent } from "react";
 
-export function withPluginBlbScriptTagger(
+export const withPluginBlbScriptTagger = (
   WrappedComponent: FunctionComponent
-): React.ReactNode {
-  class WithPluginBlbScriptTagger extends React.Component {
-    static displayName = `(WithPluginBlbScriptTagger${
-      WrappedComponent.displayName || WrappedComponent.name || "Component"
-    })`;
+): React.ReactNode => {
+  const WithPluginBlbScriptTagger = (props: ComponentProps<"div">) => {
+    useEffect(walkDomTree);
+    return <WrappedComponent {...props} />;
+  };
 
-    constructor(props: ComponentPropsWithoutRef<"div">) {
-      super(props);
-    }
-
-    componentDidMount() {
-      const canUseDom =
-        ExecutionEnvironment.canUseDOM && window?.Dom && window?.document?.body;
-      const blbIsLoaded = canUseDom && window?.BLB?.Tagger?.rqt;
-
-      if (blbIsLoaded) {
-        window?.BLB?.Tagger?.walkDomTree(document.body);
-      }
-    }
-
-    render(): JSX.Element {
-      return <WrappedComponent {...this.props} />;
-    }
-  }
+  WithPluginBlbScriptTagger.displayName = `WithPluginBlbScriptTagger(${
+    WrappedComponent.displayName || WrappedComponent.name || "Component"
+  })`;
 
   return WithPluginBlbScriptTagger;
+};
+
+function walkDomTree() {
+  const canUseDom =
+    ExecutionEnvironment.canUseDOM && window?.Dom && window?.document?.body;
+  const blbIsLoaded = canUseDom && window?.BLB?.Tagger?.rqt;
+
+  if (blbIsLoaded) {
+    window?.BLB?.Tagger?.walkDomTree(document.body);
+  }
 }

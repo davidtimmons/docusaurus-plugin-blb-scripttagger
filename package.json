@@ -24,16 +24,16 @@
   "types": "lib/index.types.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/davidtimmons/docusaurus-plugin-blb-scripttagger.git"
+    "url": "git+https://github.com/davidtimmons/docusaurus-plugin-blb-scripttagger.git"
   },
   "scripts": {
     "build": "tsc",
+    "clean": "rm -rf ./lib",
     "format": "prettier --write ./src/**/*.{js,jsx,ts,tsx,md,yml,json}",
     "watch": "tsc --watch"
   },
   "dependencies": {
-    "@docusaurus/utils-validation": "^2.0.0-beta.15",
-    "tslib": "^2.3.1"
+    "@docusaurus/utils-validation": "^2.0.0-beta.15"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "^2.0.0-beta.15",
