@@ -18,7 +18,8 @@
   "license": "MIT",
   "author": "David Timmons <npm@timmons.io> (https://github.com/davidtimmons)",
   "files": [
-    "lib/**/*"
+    "lib/**/*",
+    "src/**/*"
   ],
   "main": "lib/index.js",
   "types": "lib/index.types.d.ts",
@@ -27,7 +28,9 @@
     "url": "git+https://github.com/davidtimmons/docusaurus-plugin-blb-scripttagger.git"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "yarn build:browser && yarn build:server",
+    "build:browser": "tsc --project ./tsconfig.browser.json",
+    "build:server": "tsc --project ./tsconfig.server.json",
     "clean": "rm -rf ./lib",
     "format": "prettier --write ./src/**/*.{js,jsx,ts,tsx,md,yml,json}",
     "watch": "tsc --watch"

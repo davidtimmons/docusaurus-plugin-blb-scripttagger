@@ -1,4 +1,4 @@
 import OriginalDocItem from "@theme-init/DocItem";
-import { withPluginBlbScriptTagger } from "../wrapper";
+import { withPluginBlbScriptTagger } from "../client/wrapper";
 
 export default withPluginBlbScriptTagger(OriginalDocItem);

@@ -1,12 +1,6 @@
 import Path from "path";
-import { formatConfigOptions, pluginOptionsSchema } from "./config";
-import type {
-  LoadContext,
-  OptionValidationContext,
-  Plugin,
-  ValidationResult,
-} from "@docusaurus/types";
-import type { TOptions, TOptionsSchema } from "./index.types";
+import type { LoadContext, Plugin } from "@docusaurus/types";
+import type { TOptions } from "./pluginTypes";
 
 function pluginBlbScriptTagger(_: LoadContext, options: TOptions): Plugin {
   return {
@@ -14,6 +8,10 @@ function pluginBlbScriptTagger(_: LoadContext, options: TOptions): Plugin {
 
     getThemePath() {
       return Path.resolve(__dirname, "./theme");
+    },
+
+    getTypeScriptThemePath() {
+      return Path.resolve(__dirname, "../src/theme");
     },
 
     injectHtmlTags() {
@@ -32,7 +30,7 @@ function pluginBlbScriptTagger(_: LoadContext, options: TOptions): Plugin {
             attributes: {
               type: "text/javascript",
             },
-            innerHTML: formatConfigOptions(options),
+            innerHTML: formatRawConfigOptions(options),
           },
         ],
       };
@@ -40,12 +38,27 @@ function pluginBlbScriptTagger(_: LoadContext, options: TOptions): Plugin {
   };
 }
 
-function validateOptions({
-  validate,
-  options,
-}: OptionValidationContext<TOptionsSchema>): ValidationResult<TOptionsSchema> {
-  return validate(pluginOptionsSchema, options);
+function formatRawConfigOptions(options: TOptions): string {
+  const tagger = "window.BLB.Tagger";
+  const entries = Object.entries(options);
+  const configOptions = entries.map(([key, value]) => {
+    if (key === "id") {
+      return "";
+    } else if (typeof value === "boolean") {
+      return `${tagger}.${key} = ${value}`;
+    } else if (typeof value === "string") {
+      return `${tagger}.${key} = '${value}'`;
+    } else if (Array.isArray(value)) {
+      return `${tagger}.${key} = '${value.join(", ")}'`;
+    } else {
+      return "";
+    }
+  });
+
+  return `if (window && window.BLB && window.BLB.Tagger) {
+    ${configOptions.filter((x) => x.length > 0).join("; ")};
+  }`;
 }
 
-export { validateOptions };
+export { validateOptions } from "./validatePluginConfig";
 export default pluginBlbScriptTagger;
